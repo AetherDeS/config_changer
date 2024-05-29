@@ -45,7 +45,9 @@ python main.py read config.json
 python main.py write config.json --param server.port=7777
 
 # -- Output --
-Конфиг обновлён. Параметр: server.port, значение: 7777
+Ввод успешен.
+Параметр: server.port
+Значение: 7777
 
 # Файл до
 {
