@@ -18,14 +18,19 @@ def write_config(filepath, config):
     with open(filepath, 'w', encoding='utf-8') as f:
         data = json.dump(config, f, indent=4)
     
-
+errors = 0
 # Изменение параметра о конфиге
 def update_config(config, param, value):
-    keys = param.split('.')     # Путь к параметру
-    for key in keys[:-1]:   # Проходим по всем ключам, кроме последнего
-        # переход на следующий уровень вложенности. Если ключа нет, то создаём пустой словарь
-        data = config.setdefault(key, {})
-    data[keys[-1]] = value   # устанавливаем новое значение для поледнего ключа 
+    try:
+        keys = param.split('.')     # Путь к параметру
+        for key in keys[:-1]:   # Проходим по всем ключам, кроме последнего
+            # переход на следующий уровень вложенности. Если ключа нет, то создаём пустой словарь
+            data = config.setdefault(key, {})
+        data[keys[-1]] = value   # устанавливаем новое значение для поледнего ключа 
+    except UnboundLocalError:
+        errors += 1
+        print(f"Соблюдайте пример, обратитесь к категории, выберите параметр и напишите его значение. \nНапример: server.host=120.25.52.110\n           ^      ^          ^\n    категория  параметр   значение")
+
 
 # server.host=4.5.67.8
 
@@ -50,7 +55,10 @@ def main():
         path, value = args.param.split("=") # Параметр и значение
         update_config(config_data, path, value) 
         write_config(args.filepath, config_data)
-        print(f'Конфиг обновлён. Параметр: {path}, значение: {value}')
+        if errors < 1:
+            print(f"\nВвод успешен. \nПараметр: {path}\nЗначение: {value}")
+        else:
+            print("Программа завершилась с ошибками")
         # server.host=5.4.3.5
 
 if __name__ == "__main__":
