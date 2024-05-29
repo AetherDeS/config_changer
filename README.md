@@ -53,14 +53,14 @@ python main.py write config.json --param server.port=7777
         "host": "0.0.0.0",
         "port": "7235",    <--
         "debug": "false"
-    },
+    }, ...
 # Файл после
 {
     "server": {
         "host": "0.0.0.0",
         "port": "7777",    <--
         "debug": "false"
-    },
+    }, ...
 ```
 ### Используемые модули
 + argparse - Парсер аргументов для командной строки
